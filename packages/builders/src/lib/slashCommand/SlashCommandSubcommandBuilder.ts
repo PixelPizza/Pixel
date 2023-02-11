@@ -3,7 +3,7 @@ import {
 	APIApplicationCommandSubcommandOption,
 	ApplicationCommandOptionType
 } from "discord-api-types/v10";
-import type { SlashCommandOptionBuilder } from "./SlashCommandOptionBuilder";
+import type { SlashCommandOptionBuilder } from "./options/SlashCommandOptionBuilder";
 
 export class SlashCommandSubcommandBuilder {
 	readonly #name: string;
