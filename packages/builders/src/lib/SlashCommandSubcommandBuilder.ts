@@ -6,26 +6,26 @@ import {
 import type { SlashCommandOptionBuilder } from "./SlashCommandOptionBuilder";
 
 export class SlashCommandSubcommandBuilder {
-	private readonly name: string;
-	private readonly description: string;
-	private readonly options: APIApplicationCommandBasicOption[] = [];
+	readonly #name: string;
+	readonly #description: string;
+	readonly #options: APIApplicationCommandBasicOption[] = [];
 
 	public constructor(name: string, description: string) {
-		this.name = name;
-		this.description = description;
+		this.#name = name;
+		this.#description = description;
 	}
 
 	public addOption(builder: SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>): this {
-		this.options.push(builder.toJSON());
+		this.#options.push(builder.toJSON());
 		return this;
 	}
 
 	public toJSON(): APIApplicationCommandSubcommandOption {
 		return {
 			type: ApplicationCommandOptionType.Subcommand,
-			name: this.name,
-			description: this.description,
-			options: this.options
+			name: this.#name,
+			description: this.#description,
+			options: this.#options
 		};
 	}
 }

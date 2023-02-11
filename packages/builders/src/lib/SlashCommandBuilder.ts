@@ -9,49 +9,49 @@ import type { SlashCommandSubcommandBuilder } from "./SlashCommandSubcommandBuil
 import type { SlashCommandSubcommandGroupBuilder } from "./SlashCommandSubcommandGroupBuilder";
 
 export class SlashCommandBuilder {
-	private readonly name: string;
-	private readonly description: string;
-	private readonly name_localizations?: Partial<Record<LocaleString, string>> | null;
-	private readonly description_localizations?: Partial<Record<LocaleString, string>> | null;
-	private readonly dm_permission?: boolean;
-	private readonly default_member_permissions?: Permissions | null;
-	private readonly options: APIApplicationCommandOption[] = [];
+	readonly #name: string;
+	readonly #description: string;
+	readonly #name_localizations?: Partial<Record<LocaleString, string>> | null;
+	readonly #description_localizations?: Partial<Record<LocaleString, string>> | null;
+	readonly #dm_permission?: boolean;
+	readonly #default_member_permissions?: Permissions | null;
+	readonly #options: APIApplicationCommandOption[] = [];
 
 	public constructor(name: string, description: string, options?: SlashCommandBuilder.Options) {
-		this.name = name;
-		this.description = description;
-		this.name_localizations = options?.nameLocalizations;
-		this.description_localizations = options?.descriptionLocalizations;
-		this.dm_permission = options?.dmPermission;
-		this.default_member_permissions = options?.defaultMemberPermissions?.toString();
+		this.#name = name;
+		this.#description = description;
+		this.#name_localizations = options?.nameLocalizations;
+		this.#description_localizations = options?.descriptionLocalizations;
+		this.#dm_permission = options?.dmPermission;
+		this.#default_member_permissions = options?.defaultMemberPermissions?.toString();
 	}
 
 	public addOption(
 		builder: SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
 	): SlashCommandOptionOnlyBuilder {
-		this.options.push(builder.toJSON());
+		this.#options.push(builder.toJSON());
 		return this;
 	}
 
 	public addSubcommand(builder: SlashCommandSubcommandBuilder): SlashCommandSubcommandOnlyBuilder {
-		this.options.push(builder.toJSON());
+		this.#options.push(builder.toJSON());
 		return this;
 	}
 
 	public addSubcommandGroup(builder: SlashCommandSubcommandGroupBuilder): SlashCommandSubcommandOnlyBuilder {
-		this.options.push(builder.toJSON());
+		this.#options.push(builder.toJSON());
 		return this;
 	}
 
 	public toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody {
 		return {
-			name: this.name,
-			description: this.description,
-			name_localizations: this.name_localizations,
-			description_localizations: this.description_localizations,
-			dm_permission: this.dm_permission,
-			default_member_permissions: this.default_member_permissions,
-			options: this.options
+			name: this.#name,
+			description: this.#description,
+			name_localizations: this.#name_localizations,
+			description_localizations: this.#description_localizations,
+			dm_permission: this.#dm_permission,
+			default_member_permissions: this.#default_member_permissions,
+			options: this.#options
 		};
 	}
 }

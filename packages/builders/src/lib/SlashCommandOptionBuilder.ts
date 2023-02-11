@@ -1,21 +1,21 @@
 import type { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from "discord-api-types/v10";
 
 export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCommandOptionBuilder.Type> {
-	private readonly name: Name;
-	private readonly type: Type;
-	private readonly description: string;
+	readonly #name: Name;
+	readonly #type: Type;
+	readonly #description: string;
 
 	public constructor(name: Name, type: Type, description: string) {
-		this.name = name;
-		this.type = type;
-		this.description = description;
+		this.#name = name;
+		this.#type = type;
+		this.#description = description;
 	}
 
 	public toJSON(): APIApplicationCommandBasicOption {
 		return {
-			name: this.name,
-			type: this.type,
-			description: this.description
+			name: this.#name,
+			type: this.#type,
+			description: this.#description
 		} as APIApplicationCommandBasicOption;
 	}
 }
