@@ -4,7 +4,7 @@ import type {
 	Permissions,
 	RESTPostAPIChatInputApplicationCommandsJSONBody
 } from "discord-api-types/v10";
-import type { SlashCommandOptionBuilder } from "./SlashCommandOptionBuilder";
+import type { SlashCommandOptionBuilder } from "./options/SlashCommandOptionBuilder";
 import type { SlashCommandSubcommandBuilder } from "./SlashCommandSubcommandBuilder";
 import type { SlashCommandSubcommandGroupBuilder } from "./SlashCommandSubcommandGroupBuilder";
 
@@ -26,21 +26,28 @@ export class SlashCommandBuilder {
 		this.#default_member_permissions = options?.defaultMemberPermissions?.toString();
 	}
 
+	#addOption(
+		builder:
+			| SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
+			| SlashCommandSubcommandGroupBuilder
+			| SlashCommandSubcommandBuilder
+	) {
+		this.#options.push(builder.toJSON());
+		return this;
+	}
+
 	public addOption(
 		builder: SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
 	): SlashCommandOptionOnlyBuilder {
-		this.#options.push(builder.toJSON());
-		return this;
+		return this.#addOption(builder);
 	}
 
 	public addSubcommand(builder: SlashCommandSubcommandBuilder): SlashCommandSubcommandOnlyBuilder {
-		this.#options.push(builder.toJSON());
-		return this;
+		return this.#addOption(builder);
 	}
 
 	public addSubcommandGroup(builder: SlashCommandSubcommandGroupBuilder): SlashCommandSubcommandOnlyBuilder {
-		this.#options.push(builder.toJSON());
-		return this;
+		return this.#addOption(builder);
 	}
 
 	public toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody {
