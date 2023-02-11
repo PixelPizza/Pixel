@@ -8,13 +8,20 @@ import type { SlashCommandOptionBuilder } from "./options/SlashCommandOptionBuil
 import type { SlashCommandSubcommandBuilder } from "./SlashCommandSubcommandBuilder";
 import type { SlashCommandSubcommandGroupBuilder } from "./SlashCommandSubcommandGroupBuilder";
 
-export class SlashCommandBuilder {
+export class SlashCommandBuilder<Options = null> {
+	// noinspection JSUnusedLocalSymbols
 	readonly #name: string;
+	// noinspection JSUnusedLocalSymbols
 	readonly #description: string;
+	// noinspection JSUnusedLocalSymbols
 	readonly #name_localizations?: Partial<Record<LocaleString, string>> | null;
+	// noinspection JSUnusedLocalSymbols
 	readonly #description_localizations?: Partial<Record<LocaleString, string>> | null;
+	// noinspection JSUnusedLocalSymbols
 	readonly #dm_permission?: boolean;
+	// noinspection JSUnusedLocalSymbols
 	readonly #default_member_permissions?: Permissions | null;
+	// noinspection JSUnusedLocalSymbols
 	readonly #options: APIApplicationCommandOption[] = [];
 
 	public constructor(name: string, description: string, options?: SlashCommandBuilder.Options) {
@@ -26,6 +33,7 @@ export class SlashCommandBuilder {
 		this.#default_member_permissions = options?.defaultMemberPermissions?.toString();
 	}
 
+	// noinspection JSUnusedLocalSymbols
 	#addOption(
 		builder:
 			| SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
@@ -36,9 +44,13 @@ export class SlashCommandBuilder {
 		return this;
 	}
 
-	public addOption(
-		builder: SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
-	): SlashCommandOptionOnlyBuilder {
+	public addOption<Builder extends SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>>(
+		builder: Builder
+	): SlashCommandOptionOnlyBuilder<
+		Options extends null
+			? { [key in ReturnType<Builder["getName"]>]: Builder }
+			: Options & { [key in ReturnType<Builder["getName"]>]: Builder }
+	> {
 		return this.#addOption(builder);
 	}
 
@@ -63,6 +75,13 @@ export class SlashCommandBuilder {
 	}
 }
 
+export interface SlashCommandBuilder<Options = null> {
+	/**
+	 * @internal This method is only used for the typings and should not be used
+	 */
+	getOptions(): Options;
+}
+
 export namespace SlashCommandBuilder {
 	export interface Options {
 		nameLocalizations?: Partial<Record<LocaleString, string>> | null;
@@ -72,8 +91,10 @@ export namespace SlashCommandBuilder {
 	}
 }
 
-export type SlashCommandOptionOnlyBuilder = Pick<SlashCommandBuilder, "addOption" | "toJSON">;
+export type SlashCommandOptionOnlyBuilder<
+	Options = Record<string, SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>>
+> = Pick<SlashCommandBuilder<Options>, "addOption" | "toJSON">;
 export type SlashCommandSubcommandOnlyBuilder = Pick<
-	SlashCommandBuilder,
+	SlashCommandBuilder<Record<string, never>>,
 	"addSubcommand" | "addSubcommandGroup" | "toJSON"
 >;
