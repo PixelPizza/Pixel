@@ -2,15 +2,14 @@ import type { APIApplicationCommandChannelOption } from "discord-api-types/v10";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
-export class SlashCommandChannelOptionBuilder extends BaseSlashCommandOptionBuilder {
+export class SlashCommandChannelOptionBuilder extends BaseSlashCommandOptionBuilder<ApplicationCommandOptionType.Channel> {
 	public constructor(name: string, description: string, options?: SlashCommandChannelOptionBuilder.Options) {
-		super(name, description, options);
+		super(name, ApplicationCommandOptionType.Channel, description, options);
 	}
 
 	public toJSON(): APIApplicationCommandChannelOption {
 		return {
-			...super.toJSON(),
-			type: ApplicationCommandOptionType.Channel
+			...super.toJSON()
 		};
 	}
 }

@@ -9,7 +9,6 @@ import { SlashCommandNumberOptionBuilder } from "./SlashCommandNumberOptionBuild
 import { SlashCommandRoleOptionBuilder } from "./SlashCommandRoleOptionBuilder";
 import { SlashCommandStringOptionBuilder } from "./SlashCommandStringOptionBuilder";
 import { SlashCommandUserOptionBuilder } from "./SlashCommandUserOptionBuilder";
-import type { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
 interface SlashCommandOptionBuilderBuilders {
 	[ApplicationCommandOptionType.Attachment]: SlashCommandAttachmentOptionBuilder;
@@ -23,10 +22,22 @@ interface SlashCommandOptionBuilderBuilders {
 	[ApplicationCommandOptionType.User]: SlashCommandUserOptionBuilder;
 }
 
+interface SlashCommandOptionBuilderOptions {
+	[ApplicationCommandOptionType.Attachment]: SlashCommandAttachmentOptionBuilder.Options;
+	[ApplicationCommandOptionType.Boolean]: SlashCommandBooleanOptionBuilder.Options;
+	[ApplicationCommandOptionType.Channel]: SlashCommandChannelOptionBuilder.Options;
+	[ApplicationCommandOptionType.Integer]: SlashCommandIntegerOptionBuilder.Options;
+	[ApplicationCommandOptionType.Mentionable]: SlashCommandMentionableOptionBuilder.Options;
+	[ApplicationCommandOptionType.Number]: SlashCommandNumberOptionBuilder.Options;
+	[ApplicationCommandOptionType.Role]: SlashCommandRoleOptionBuilder.Options;
+	[ApplicationCommandOptionType.String]: SlashCommandStringOptionBuilder.Options;
+	[ApplicationCommandOptionType.User]: SlashCommandUserOptionBuilder.Options;
+}
+
 export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCommandOptionBuilder.Type> {
 	readonly #builder: SlashCommandOptionBuilderBuilders[SlashCommandOptionBuilder.Type];
 
-	public constructor(name: Name, type: Type, description: string, options?: BaseSlashCommandOptionBuilder.Options) {
+	public constructor(name: Name, type: Type, description: string, options?: SlashCommandOptionBuilderOptions[Type]) {
 		switch (type) {
 			case ApplicationCommandOptionType.Attachment:
 				this.#builder = new SlashCommandAttachmentOptionBuilder(name, description, options);

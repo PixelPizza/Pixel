@@ -2,15 +2,14 @@ import type { APIApplicationCommandAttachmentOption } from "discord-api-types/v1
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
-export class SlashCommandAttachmentOptionBuilder extends BaseSlashCommandOptionBuilder {
+export class SlashCommandAttachmentOptionBuilder extends BaseSlashCommandOptionBuilder<ApplicationCommandOptionType.Attachment> {
 	public constructor(name: string, description: string, options?: SlashCommandAttachmentOptionBuilder.Options) {
-		super(name, description, options);
+		super(name, ApplicationCommandOptionType.Attachment, description, options);
 	}
 
 	public toJSON(): APIApplicationCommandAttachmentOption {
 		return {
-			...super.toJSON(),
-			type: ApplicationCommandOptionType.Attachment
+			...super.toJSON()
 		};
 	}
 }
