@@ -10,9 +10,9 @@ export class SlashCommandSubcommandGroupBuilder {
 	private readonly description: string;
 	private readonly options: APIApplicationCommandSubcommandOption[] = [];
 
-	public constructor(name: string, options: SlashCommandSubcommandGroupBuilder.Options) {
+	public constructor(name: string, description: string) {
 		this.name = name;
-		this.description = options.description;
+		this.description = description;
 	}
 
 	public addSubcommand(subcommand: SlashCommandSubcommandBuilder): this {
@@ -27,11 +27,5 @@ export class SlashCommandSubcommandGroupBuilder {
 			description: this.description,
 			options: this.options
 		};
-	}
-}
-
-export namespace SlashCommandSubcommandGroupBuilder {
-	export interface Options {
-		description: string;
 	}
 }

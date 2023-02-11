@@ -17,13 +17,13 @@ export class SlashCommandBuilder {
 	private readonly default_member_permissions?: Permissions | null;
 	private readonly options: APIApplicationCommandOption[] = [];
 
-	public constructor(name: string, options: SlashCommandBuilder.Options) {
+	public constructor(name: string, description: string, options?: SlashCommandBuilder.Options) {
 		this.name = name;
-		this.description = options.description;
-		this.name_localizations = options.nameLocalizations;
-		this.description_localizations = options.descriptionLocalizations;
-		this.dm_permission = options.dmPermission;
-		this.default_member_permissions = options.defaultMemberPermissions?.toString();
+		this.description = description;
+		this.name_localizations = options?.nameLocalizations;
+		this.description_localizations = options?.descriptionLocalizations;
+		this.dm_permission = options?.dmPermission;
+		this.default_member_permissions = options?.defaultMemberPermissions?.toString();
 	}
 
 	public addOption(
@@ -58,7 +58,6 @@ export class SlashCommandBuilder {
 
 export namespace SlashCommandBuilder {
 	export interface Options {
-		description: string;
 		nameLocalizations?: Partial<Record<LocaleString, string>> | null;
 		descriptionLocalizations?: Partial<Record<LocaleString, string>> | null;
 		dmPermission?: boolean;

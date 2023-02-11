@@ -5,10 +5,10 @@ export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCo
 	private readonly type: Type;
 	private readonly description: string;
 
-	public constructor(name: Name, type: Type, options: SlashCommandOptionBuilder.Options) {
+	public constructor(name: Name, type: Type, description: string) {
 		this.name = name;
 		this.type = type;
-		this.description = options.description;
+		this.description = description;
 	}
 
 	public toJSON(): APIApplicationCommandBasicOption {
@@ -31,8 +31,4 @@ export namespace SlashCommandOptionBuilder {
 		| ApplicationCommandOptionType.Role
 		| ApplicationCommandOptionType.String
 		| ApplicationCommandOptionType.User;
-
-	export interface Options {
-		description: string;
-	}
 }

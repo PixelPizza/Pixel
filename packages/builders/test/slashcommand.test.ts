@@ -7,11 +7,10 @@ import {
 	SlashCommandSubcommandGroupBuilder
 } from "../src";
 
-const createInvalidBuilder = () => new SlashCommandBuilder("", { description: "" });
-const createValidBuilder = () => new SlashCommandBuilder("test", { description: "test description" });
+const createInvalidBuilder = () => new SlashCommandBuilder("", "");
+const createValidBuilder = () => new SlashCommandBuilder("test", "test description");
 const createValidBuilderWithOptionalParams = () =>
-	new SlashCommandBuilder("test", {
-		description: "test description",
+	new SlashCommandBuilder("test", "test description", {
 		nameLocalizations: {
 			de: "test",
 			"en-GB": "test"
@@ -26,57 +25,23 @@ const createValidBuilderWithOptionalParams = () =>
 const createValidBuilderWithOptions = () =>
 	createValidBuilder()
 		.addOption(
-			new SlashCommandOptionBuilder("attachment", ApplicationCommandOptionType.Attachment, {
-				description: "attachment option"
-			})
+			new SlashCommandOptionBuilder("attachment", ApplicationCommandOptionType.Attachment, "attachment option")
 		)
+		.addOption(new SlashCommandOptionBuilder("boolean", ApplicationCommandOptionType.Boolean, "boolean option"))
+		.addOption(new SlashCommandOptionBuilder("channel", ApplicationCommandOptionType.Channel, "channel option"))
+		.addOption(new SlashCommandOptionBuilder("integer", ApplicationCommandOptionType.Integer, "integer option"))
 		.addOption(
-			new SlashCommandOptionBuilder("boolean", ApplicationCommandOptionType.Boolean, {
-				description: "boolean option"
-			})
+			new SlashCommandOptionBuilder("mentionable", ApplicationCommandOptionType.Mentionable, "mentionable option")
 		)
-		.addOption(
-			new SlashCommandOptionBuilder("channel", ApplicationCommandOptionType.Channel, {
-				description: "channel option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("integer", ApplicationCommandOptionType.Integer, {
-				description: "integer option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("mentionable", ApplicationCommandOptionType.Mentionable, {
-				description: "mentionable option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("number", ApplicationCommandOptionType.Number, {
-				description: "number option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("role", ApplicationCommandOptionType.Role, {
-				description: "role option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("string", ApplicationCommandOptionType.String, {
-				description: "string option"
-			})
-		)
-		.addOption(
-			new SlashCommandOptionBuilder("user", ApplicationCommandOptionType.User, {
-				description: "user option"
-			})
-		);
+		.addOption(new SlashCommandOptionBuilder("number", ApplicationCommandOptionType.Number, "number option"))
+		.addOption(new SlashCommandOptionBuilder("role", ApplicationCommandOptionType.Role, "role option"))
+		.addOption(new SlashCommandOptionBuilder("string", ApplicationCommandOptionType.String, "string option"))
+		.addOption(new SlashCommandOptionBuilder("user", ApplicationCommandOptionType.User, "user option"));
 const createValidBuilderWithSubcommand = () =>
-	createValidBuilder().addSubcommand(
-		new SlashCommandSubcommandBuilder("subcommand", { description: "subcommand description" })
-	);
+	createValidBuilder().addSubcommand(new SlashCommandSubcommandBuilder("subcommand", "subcommand description"));
 const createValidBuilderWithSubcommandGroup = () =>
 	createValidBuilder().addSubcommandGroup(
-		new SlashCommandSubcommandGroupBuilder("subcommandgroup", { description: "subcommandgroup description" })
+		new SlashCommandSubcommandGroupBuilder("subcommandgroup", "subcommandgroup description")
 	);
 
 describe("Slash Commands", () => {
