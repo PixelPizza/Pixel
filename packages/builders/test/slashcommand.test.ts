@@ -198,6 +198,17 @@ describe("Slash Commands", () => {
 	describe("SlashCommandOptionBuilder", () => {
 		const createBuilder = (type: SlashCommandOptionBuilder.Type) =>
 			new SlashCommandOptionBuilder("test", type, "test description");
+		const createBuilderWithOptionalParams = (type: SlashCommandOptionBuilder.Type) =>
+			new SlashCommandOptionBuilder("test", type, "test description", {
+				nameLocalizations: {
+					de: "test",
+					"en-GB": "test"
+				},
+				descriptionLocalizations: {
+					de: "test",
+					"en-GB": "test"
+				}
+			});
 
 		test("GIVEN invalid builder THEN throw error", () => {
 			expect(
@@ -220,6 +231,14 @@ describe("Slash Commands", () => {
 			expect(() => createBuilder(ApplicationCommandOptionType.Attachment)).not.toThrowError();
 
 			expect(() => createBuilder(ApplicationCommandOptionType.Attachment).toJSON()).not.toThrowError();
+		});
+
+		test("GIVEN valid builder with optional params THEN does not throw error", () => {
+			expect(() => createBuilderWithOptionalParams(ApplicationCommandOptionType.Attachment)).not.toThrowError();
+
+			expect(() =>
+				createBuilderWithOptionalParams(ApplicationCommandOptionType.Attachment).toJSON()
+			).not.toThrowError();
 		});
 	});
 });

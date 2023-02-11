@@ -9,6 +9,7 @@ import { SlashCommandNumberOptionBuilder } from "./SlashCommandNumberOptionBuild
 import { SlashCommandRoleOptionBuilder } from "./SlashCommandRoleOptionBuilder";
 import { SlashCommandStringOptionBuilder } from "./SlashCommandStringOptionBuilder";
 import { SlashCommandUserOptionBuilder } from "./SlashCommandUserOptionBuilder";
+import type { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
 interface SlashCommandOptionBuilderBuilders {
 	[ApplicationCommandOptionType.Attachment]: SlashCommandAttachmentOptionBuilder;
@@ -25,34 +26,34 @@ interface SlashCommandOptionBuilderBuilders {
 export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCommandOptionBuilder.Type> {
 	readonly #builder: SlashCommandOptionBuilderBuilders[SlashCommandOptionBuilder.Type];
 
-	public constructor(name: Name, type: Type, description: string) {
+	public constructor(name: Name, type: Type, description: string, options?: BaseSlashCommandOptionBuilder.Options) {
 		switch (type) {
 			case ApplicationCommandOptionType.Attachment:
-				this.#builder = new SlashCommandAttachmentOptionBuilder(name, description);
+				this.#builder = new SlashCommandAttachmentOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Boolean:
-				this.#builder = new SlashCommandBooleanOptionBuilder(name, description);
+				this.#builder = new SlashCommandBooleanOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Channel:
-				this.#builder = new SlashCommandChannelOptionBuilder(name, description);
+				this.#builder = new SlashCommandChannelOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Integer:
-				this.#builder = new SlashCommandIntegerOptionBuilder(name, description);
+				this.#builder = new SlashCommandIntegerOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Mentionable:
-				this.#builder = new SlashCommandMentionableOptionBuilder(name, description);
+				this.#builder = new SlashCommandMentionableOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Number:
-				this.#builder = new SlashCommandNumberOptionBuilder(name, description);
+				this.#builder = new SlashCommandNumberOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Role:
-				this.#builder = new SlashCommandRoleOptionBuilder(name, description);
+				this.#builder = new SlashCommandRoleOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.String:
-				this.#builder = new SlashCommandStringOptionBuilder(name, description);
+				this.#builder = new SlashCommandStringOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.User:
-				this.#builder = new SlashCommandUserOptionBuilder(name, description);
+				this.#builder = new SlashCommandUserOptionBuilder(name, description, options);
 				break;
 			default:
 				throw new Error(`Unknown option type: ${type}`);

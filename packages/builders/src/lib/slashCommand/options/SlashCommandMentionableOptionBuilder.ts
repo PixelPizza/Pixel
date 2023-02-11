@@ -1,20 +1,20 @@
 import type { APIApplicationCommandMentionableOption } from "discord-api-types/v10";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
-export class SlashCommandMentionableOptionBuilder {
-	readonly #name: string;
-	readonly #description: string;
-
-	public constructor(name: string, description: string) {
-		this.#name = name;
-		this.#description = description;
+export class SlashCommandMentionableOptionBuilder extends BaseSlashCommandOptionBuilder {
+	public constructor(name: string, description: string, options?: SlashCommandMentionableOptionBuilder.Options) {
+		super(name, description, options);
 	}
 
 	public toJSON(): APIApplicationCommandMentionableOption {
 		return {
-			type: ApplicationCommandOptionType.Mentionable,
-			name: this.#name,
-			description: this.#description
+			...super.toJSON(),
+			type: ApplicationCommandOptionType.Mentionable
 		};
 	}
+}
+
+export namespace SlashCommandMentionableOptionBuilder {
+	export interface Options extends BaseSlashCommandOptionBuilder.Options {}
 }

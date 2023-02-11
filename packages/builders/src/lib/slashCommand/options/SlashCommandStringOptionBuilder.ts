@@ -1,20 +1,20 @@
 import type { APIApplicationCommandStringOption } from "discord-api-types/v10";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
-export class SlashCommandStringOptionBuilder {
-	readonly #name: string;
-	readonly #description: string;
-
-	public constructor(name: string, description: string) {
-		this.#name = name;
-		this.#description = description;
+export class SlashCommandStringOptionBuilder extends BaseSlashCommandOptionBuilder {
+	public constructor(name: string, description: string, options?: SlashCommandStringOptionBuilder.Options) {
+		super(name, description, options);
 	}
 
 	public toJSON(): APIApplicationCommandStringOption {
 		return {
-			type: ApplicationCommandOptionType.String,
-			name: this.#name,
-			description: this.#description
+			...super.toJSON(),
+			type: ApplicationCommandOptionType.String
 		};
 	}
+}
+
+export namespace SlashCommandStringOptionBuilder {
+	export interface Options extends BaseSlashCommandOptionBuilder.Options {}
 }

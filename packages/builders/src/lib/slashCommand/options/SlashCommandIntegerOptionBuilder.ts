@@ -1,20 +1,20 @@
 import type { APIApplicationCommandIntegerOption } from "discord-api-types/v10";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { BaseSlashCommandOptionBuilder } from "./BaseSlashCommandOptionBuilder";
 
-export class SlashCommandIntegerOptionBuilder {
-	readonly #name: string;
-	readonly #description: string;
-
-	public constructor(name: string, description: string) {
-		this.#name = name;
-		this.#description = description;
+export class SlashCommandIntegerOptionBuilder extends BaseSlashCommandOptionBuilder {
+	public constructor(name: string, description: string, options?: SlashCommandIntegerOptionBuilder.Options) {
+		super(name, description, options);
 	}
 
 	public toJSON(): APIApplicationCommandIntegerOption {
 		return {
-			type: ApplicationCommandOptionType.Integer,
-			name: this.#name,
-			description: this.#description
+			...super.toJSON(),
+			type: ApplicationCommandOptionType.Integer
 		};
 	}
+}
+
+export namespace SlashCommandIntegerOptionBuilder {
+	export interface Options extends BaseSlashCommandOptionBuilder.Options {}
 }
