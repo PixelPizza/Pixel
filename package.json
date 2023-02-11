@@ -1,5 +1,5 @@
 {
-	"name": "@pixelpizza/monorepo",
+	"name": "@pixelpizza/pixel",
 	"private": true,
 	"workspaces": [
 		"packages/*"

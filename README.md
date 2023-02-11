@@ -1,3 +1,3 @@
-# Pixel Pizza Template
+# Pixel
 
-A template for pixelpizza discord bots
+A discord bot framework
