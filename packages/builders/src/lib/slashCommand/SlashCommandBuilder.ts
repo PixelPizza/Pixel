@@ -7,8 +7,10 @@ import type {
 import type { SlashCommandOptionBuilder } from "./options/SlashCommandOptionBuilder";
 import type { SlashCommandSubcommandBuilder } from "./SlashCommandSubcommandBuilder";
 import type { SlashCommandSubcommandGroupBuilder } from "./SlashCommandSubcommandGroupBuilder";
+import { ApplicationCommandType } from "discord-api-types/v10";
 
 export class SlashCommandBuilder<Options = null> {
+	readonly #type = ApplicationCommandType.ChatInput;
 	readonly #name: string;
 	readonly #description: string;
 	readonly #name_localizations?: Partial<Record<LocaleString, string>> | null;
@@ -59,6 +61,7 @@ export class SlashCommandBuilder<Options = null> {
 
 	public toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody {
 		return {
+			type: this.#type,
 			name: this.#name,
 			description: this.#description,
 			name_localizations: this.#name_localizations,
