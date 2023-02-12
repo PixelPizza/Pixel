@@ -1,4 +1,4 @@
-import type { APIApplicationCommandBasicOption, LocaleString } from "discord-api-types/v10";
+import type { APIApplicationCommandOptionBase, LocaleString } from "discord-api-types/v10";
 import type { SlashCommandOptionBuilder } from "./SlashCommandOptionBuilder";
 
 export abstract class BaseSlashCommandOptionBuilder<Type extends SlashCommandOptionBuilder.Type> {
@@ -23,7 +23,7 @@ export abstract class BaseSlashCommandOptionBuilder<Type extends SlashCommandOpt
 		this.#description_localizations = options?.descriptionLocalizations;
 	}
 
-	public toJSON(): Omit<APIApplicationCommandBasicOption, "type"> & { type: Type } {
+	public toJSON(): APIApplicationCommandOptionBase<Type> {
 		return {
 			type: this.#type,
 			name: this.#name,
