@@ -17,6 +17,7 @@ export class SlashCommandBuilder<Options = null> {
 	readonly #description_localizations?: Partial<Record<LocaleString, string>> | null;
 	readonly #dm_permission?: boolean;
 	readonly #default_member_permissions?: Permissions | null;
+	readonly #nsfw?: boolean;
 	readonly #options: APIApplicationCommandOption[] = [];
 
 	public constructor(name: string, description: string, options?: SlashCommandBuilder.Options) {
@@ -26,6 +27,7 @@ export class SlashCommandBuilder<Options = null> {
 		this.#description_localizations = options?.descriptionLocalizations;
 		this.#dm_permission = options?.dmPermission;
 		this.#default_member_permissions = options?.defaultMemberPermissions?.toString();
+		this.#nsfw = options?.nsfw;
 	}
 
 	#addOption(
@@ -68,6 +70,7 @@ export class SlashCommandBuilder<Options = null> {
 			description_localizations: this.#description_localizations,
 			dm_permission: this.#dm_permission,
 			default_member_permissions: this.#default_member_permissions,
+			nsfw: this.#nsfw,
 			options: this.#options
 		};
 	}
@@ -79,6 +82,7 @@ export namespace SlashCommandBuilder {
 		descriptionLocalizations?: Partial<Record<LocaleString, string>> | null;
 		dmPermission?: boolean;
 		defaultMemberPermissions?: number | null;
+		nsfw?: boolean;
 	}
 }
 
