@@ -9,19 +9,12 @@ import type { SlashCommandSubcommandBuilder } from "./SlashCommandSubcommandBuil
 import type { SlashCommandSubcommandGroupBuilder } from "./SlashCommandSubcommandGroupBuilder";
 
 export class SlashCommandBuilder<Options = null> {
-	// noinspection JSUnusedLocalSymbols
 	readonly #name: string;
-	// noinspection JSUnusedLocalSymbols
 	readonly #description: string;
-	// noinspection JSUnusedLocalSymbols
 	readonly #name_localizations?: Partial<Record<LocaleString, string>> | null;
-	// noinspection JSUnusedLocalSymbols
 	readonly #description_localizations?: Partial<Record<LocaleString, string>> | null;
-	// noinspection JSUnusedLocalSymbols
 	readonly #dm_permission?: boolean;
-	// noinspection JSUnusedLocalSymbols
 	readonly #default_member_permissions?: Permissions | null;
-	// noinspection JSUnusedLocalSymbols
 	readonly #options: APIApplicationCommandOption[] = [];
 
 	public constructor(name: string, description: string, options?: SlashCommandBuilder.Options) {
@@ -33,7 +26,6 @@ export class SlashCommandBuilder<Options = null> {
 		this.#default_member_permissions = options?.defaultMemberPermissions?.toString();
 	}
 
-	// noinspection JSUnusedLocalSymbols
 	#addOption(
 		builder:
 			| SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>
@@ -44,12 +36,15 @@ export class SlashCommandBuilder<Options = null> {
 		return this;
 	}
 
-	public addOption<Builder extends SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>>(
+	public addOption<
+		Builder extends SlashCommandOptionBuilder<string, SlashCommandOptionBuilder.Type>,
+		Name extends Builder extends SlashCommandOptionBuilder<infer Name, SlashCommandOptionBuilder.Type>
+			? Name
+			: never
+	>(
 		builder: Builder
 	): SlashCommandOptionOnlyBuilder<
-		Options extends null
-			? { [key in ReturnType<Builder["getName"]>]: Builder }
-			: Options & { [key in ReturnType<Builder["getName"]>]: Builder }
+		Options extends null ? { [key in Name]: Builder } : Options & { [key in Name]: Builder }
 	> {
 		return this.#addOption(builder);
 	}
@@ -73,13 +68,6 @@ export class SlashCommandBuilder<Options = null> {
 			options: this.#options
 		};
 	}
-}
-
-export interface SlashCommandBuilder<Options = null> {
-	/**
-	 * @internal This method is only used for the typings and should not be used
-	 */
-	getOptions(): Options;
 }
 
 export namespace SlashCommandBuilder {

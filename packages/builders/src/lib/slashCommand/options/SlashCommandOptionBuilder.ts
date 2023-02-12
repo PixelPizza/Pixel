@@ -76,18 +76,6 @@ export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCo
 	}
 }
 
-export interface SlashCommandOptionBuilder<Name extends string, Type extends SlashCommandOptionBuilder.Type> {
-	/**
-	 * @internal This method is only used for the typings and should not be used
-	 */
-	getName(): Name;
-
-	/**
-	 * @internal This method is only used for the typings and should not be used
-	 */
-	getType(): Type;
-}
-
 export namespace SlashCommandOptionBuilder {
 	export type Type =
 		| ApplicationCommandOptionType.Attachment
