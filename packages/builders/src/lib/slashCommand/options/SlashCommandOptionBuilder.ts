@@ -49,19 +49,31 @@ export class SlashCommandOptionBuilder<Name extends string, Type extends SlashCo
 				this.#builder = new SlashCommandChannelOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Integer:
-				this.#builder = new SlashCommandIntegerOptionBuilder(name, description, options);
+				this.#builder = new SlashCommandIntegerOptionBuilder(
+					name,
+					description,
+					options as SlashCommandIntegerOptionBuilder.Options
+				);
 				break;
 			case ApplicationCommandOptionType.Mentionable:
 				this.#builder = new SlashCommandMentionableOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.Number:
-				this.#builder = new SlashCommandNumberOptionBuilder(name, description, options);
+				this.#builder = new SlashCommandNumberOptionBuilder(
+					name,
+					description,
+					options as SlashCommandNumberOptionBuilder.Options
+				);
 				break;
 			case ApplicationCommandOptionType.Role:
 				this.#builder = new SlashCommandRoleOptionBuilder(name, description, options);
 				break;
 			case ApplicationCommandOptionType.String:
-				this.#builder = new SlashCommandStringOptionBuilder(name, description, options);
+				this.#builder = new SlashCommandStringOptionBuilder(
+					name,
+					description,
+					options as SlashCommandStringOptionBuilder.Options
+				);
 				break;
 			case ApplicationCommandOptionType.User:
 				this.#builder = new SlashCommandUserOptionBuilder(name, description, options);
