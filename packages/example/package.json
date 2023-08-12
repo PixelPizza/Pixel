@@ -1,6 +1,6 @@
 {
   "name": "@pixelpizza/example",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Example package for TypeScript monorepo projects",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -15,10 +15,10 @@
   "sideEffects": [
     "./dist/chunk*.mjs"
   ],
-  "homepage": "https://github.com/Jaronline/ts-monorepo-template/tree/main/packages/example",
+  "homepage": "https://github.com/PixelPizza/Pixel/tree/main/packages/example",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jaronline/ts-monorepo-template.git",
+    "url": "git+https://github.com/PixelPizza/Pixel.git",
     "directory": "packages/example"
   },
   "files": [
@@ -27,7 +27,7 @@
     "dist/**/*.d*"
   ],
   "bugs": {
-    "url": "https://github.com/Jaronline/ts-monorepo-template/issues"
+    "url": "https://github.com/PixelPizza/Pixel/issues"
   },
   "publishConfig": {
     "access": "public"
